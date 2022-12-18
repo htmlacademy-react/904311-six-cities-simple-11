@@ -1,9 +1,9 @@
 import { useAppDispatch } from '../../hooks';
-import { setActiveOffer } from '../../store/action';
 import { generatePath, Link } from 'react-router-dom';
 import { Offer } from '../../types/common';
 import { StyleOfferCard } from '../../types/properties-style';
 import { AppRoute } from '../../const';
+import { setActiveOffer } from '../../store/offers/offers';
 
 type OfferCardProps = {
   offer: Offer;

@@ -1,6 +1,6 @@
 import { PropertiesMap } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { setActiveOffer } from '../../store/action';
+import { setActiveOffer } from '../../store/offers/offers';
 import { Offer, Offers } from '../../types/common';
 import Map from '../map/map';
 import ReviewsContent from '../reviews-content/reviews-content';

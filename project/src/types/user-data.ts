@@ -4,7 +4,7 @@ export type UserData = {
   token: string;
 }
 
-export type AuthInfo = {
+export type UserInfo = {
   avatarUrl: string;
   email: string;
   id: number;

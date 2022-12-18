@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getUserInfo } from '../../store/user/selectors';
 
 function HeaderNavLogged(): JSX.Element {
-  const email = useAppSelector((state) => state.userInfo?.email);
+  const email = useAppSelector(getUserInfo)?.email;
 
   const dispatch = useAppDispatch();
 

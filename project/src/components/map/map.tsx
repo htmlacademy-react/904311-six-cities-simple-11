@@ -6,6 +6,7 @@ import useMap from '../../hooks/useMap';
 import { Offers, Location } from '../../types/common';
 import { PropertiesMap } from '../../types/properties-style';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
+import { getActiveOffer } from '../../store/offers/selectors';
 
 type MapProps = {
   offers: Offers;
@@ -25,7 +26,7 @@ const currentIcon = new Icon({
 });
 
 function Map({offers, propertiesMap}: MapProps): JSX.Element {
-  const activeOffer = useAppSelector((state) => state.activeOffer);
+  const activeOffer = useAppSelector(getActiveOffer);
 
   const city: Location = offers[0].city.location;
   const mapRef = useRef(null);

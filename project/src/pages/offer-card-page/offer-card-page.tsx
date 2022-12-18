@@ -7,13 +7,16 @@ import { fetchNearbyOffersAction, fetchReviewsAction, fetchSelectedOfferAction }
 import Header from '../../components/header/header';
 import LoadingPage from '../loading-page/loading-page';
 import OfferPageContent from '../../components/offer-page-content/offer-page-content';
+import { getErrorSelectedOfferLoading, getNearbyOffersLoadingStatus, getReviewsLoadingStatus, getSelectedOffer, getSelectedOfferLoadingStatus } from '../../store/offer/selectors';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function OfferCardPage(): JSX.Element {
-  const offer = useAppSelector((state) => state.selectedOffer);
+  const offer = useAppSelector(getSelectedOffer);
 
-  const checkOfferLoading = useAppSelector((state) => state.isSelectedOfferLoading);
-  const checkNearbyOffersLoading = useAppSelector((state) => state.isNearbyOffersLoading);
-  const checkReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
+  const checkOfferLoading = useAppSelector(getSelectedOfferLoadingStatus);
+  const checkNearbyOffersLoading = useAppSelector(getNearbyOffersLoadingStatus);
+  const checkReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+  const checkErrorOfferLoading = useAppSelector(getErrorSelectedOfferLoading);
 
   const isDataLoading = offer === null || checkOfferLoading || checkNearbyOffersLoading || checkReviewsLoading;
 
@@ -27,6 +30,10 @@ function OfferCardPage(): JSX.Element {
     dispatch(fetchNearbyOffersAction(offerId));
     dispatch(fetchReviewsAction(offerId));
   }, [dispatch, offerId]);
+
+  if (checkErrorOfferLoading) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className="page">

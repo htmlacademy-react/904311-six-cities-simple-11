@@ -3,27 +3,30 @@ import { useAppSelector } from '../../hooks';
 import ListOffers from '../offers-list/offers-list';
 import Map from '../map/map';
 import Sorting from '../sorting/sorting';
+import { getCity, getOffersSorted, getSort } from '../../store/offers/selectors';
 
 function CityContent(): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.sortedOffers);
-  const activeSort = useAppSelector((state) => state.sort);
+  const activeCity = useAppSelector(getCity);
+  const offers = useAppSelector(getOffersSorted);
+  const activeSort = useAppSelector(getSort);
+
+  const offersByCity = offers.filter((offer) => offer.city.name === activeCity);
 
   return (
     <div className="cities">
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} places to stay in {activeCity}</b>
+          <b className="places__found">{offersByCity.length} places to stay in {activeCity}</b>
 
           <Sorting sortType={activeSort} />
 
-          <ListOffers offers={offers} styleOfferCard={StyleOfferCard.CityOffer} />
+          <ListOffers offers={offersByCity} styleOfferCard={StyleOfferCard.CityOffer} />
 
         </section>
 
         <div className="cities__right-section">
-          <Map offers={offers} propertiesMap={PropertiesMap.Main} />
+          <Map offers={offersByCity} propertiesMap={PropertiesMap.Main} />
         </div>
 
       </div>
